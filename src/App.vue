@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <span>现在的数字是：{{ number }}</span></br>
+    <input type="button" v-on:click="increaseNumber" title="+" value="点击+增加数字" /></br>
+    <input type="button" v-on:click="decreaseNumber" title="+" value="点击-减少数字" />
   </div>
 </template>
 
@@ -10,19 +11,18 @@ import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'app',
-  components: {
-    HelloWorld
+  data: function() {
+    return {
+      number: 0
+    }
+  },
+  methods: {
+    increaseNumber: function() {
+      this.number++;
+    },
+    decreaseNumber: function() {
+      this.number--;
+    }
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
