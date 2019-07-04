@@ -1,28 +1,30 @@
 <template>
   <div id="app">
-    <span>现在的数字是：{{ number }}</span></br>
-    <input type="button" v-on:click="increaseNumber" title="+" value="点击+增加数字" /></br>
-    <input type="button" v-on:click="decreaseNumber" title="+" value="点击-减少数字" />
+    <CounterGroup v-on:cal-number-sum="calNumberSum"/>
+    <CounterSum v-bind:counterNumberSum="counterNumberSum"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// import Counter from './components/Counter.vue'
+import CounterGroup from './components/CounterGroup.vue';
+import CounterSum from './components/CounterSum.vue';
 
 export default {
   name: 'app',
   data: function() {
     return {
-      number: 0
+      counterNumberSum: 0
     }
   },
   methods: {
-    increaseNumber: function() {
-      this.number++;
-    },
-    decreaseNumber: function() {
-      this.number--;
+    calNumberSum: function(sum) {
+      this.counterNumberSum = sum
     }
+  },
+  components: {
+    CounterGroup,
+    CounterSum
   }
 }
 </script>
