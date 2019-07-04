@@ -18,6 +18,18 @@
           <input type="checkbox">
           <span>Ruby</span>
         </li>
+        <li>
+          <input type="checkbox">
+          <span>Webpack</span>
+        </li>
+        <li>
+          <input type="checkbox">
+          <span>React</span>
+        </li>
+        <li>
+          <input type="checkbox">
+          <span>Vue</span>
+        </li>
       </ol>
     </div>
   </div>
@@ -31,7 +43,6 @@ export default {
 
 <style scope>
 .body-container {
-  height: 80px;
 }
 .add-panel {
   display: flex;
