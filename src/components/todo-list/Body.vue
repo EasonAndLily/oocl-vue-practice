@@ -1,34 +1,14 @@
 <template>
   <div id="todolist-body" class="body-container">
     <div id="add-todoList" class="add-panel">
-      <input type="text" class="item-input" placeholder="enter a todo item">
-      <input type="button" value="Add" class="add-btn">
+      <input type="text" class="item-input" v-model="inputItem" placeholder="enter a todo item">
+      <input type="button" value="Add" class="add-btn" @click="addItem">
     </div>
     <div id="show-todoList" class="show-panel">
       <ol>
-        <li>
+        <li v-for="(item, key) in todoItems" :key="key">
           <input type="checkbox">
-          <span>JavaScript</span>
-        </li>
-        <li>
-          <input type="checkbox">
-          <span>Node.js</span>
-        </li>
-        <li>
-          <input type="checkbox">
-          <span>Ruby</span>
-        </li>
-        <li>
-          <input type="checkbox">
-          <span>Webpack</span>
-        </li>
-        <li>
-          <input type="checkbox">
-          <span>React</span>
-        </li>
-        <li>
-          <input type="checkbox">
-          <span>Vue</span>
+          <span>{{item}}</span>
         </li>
       </ol>
     </div>
@@ -37,12 +17,26 @@
 
 <script>
 export default {
-  name: "todolist-body"
+  name: "todolist-body",
+  data() {
+    return {
+      inputItem: "",
+      todoItems: ["JavaScript", "Node.js", "Ruby"]
+    };
+  },
+  methods: {
+    addItem: function() {
+      this.todoItems.push(this.inputItem);
+      this.inputItem = "";
+    }
+  }
 };
 </script>
 
 <style scope>
 .body-container {
+  display: flex;
+  flex-direction: column;
 }
 .add-panel {
   display: flex;
@@ -50,7 +44,7 @@ export default {
   align-items: center;
 }
 .item-input {
-  padding: 4px 15px 4px 0;
+  padding: 4px 15px 4px 4px;
   flex-grow: 10;
   height: 20px;
   font-size: 12px;
