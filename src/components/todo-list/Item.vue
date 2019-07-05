@@ -1,7 +1,7 @@
 <template>
   <li>
     <input type="checkbox" v-model="checked" @change="handleChange">
-    <span v-bind:class="{checked: checked}">{{item.value}}</span>
+    <span v-bind:class="{checked: checkedea}">{{item.value}}</span>
   </li>
 </template>
 

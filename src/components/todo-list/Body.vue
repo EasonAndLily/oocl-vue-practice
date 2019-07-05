@@ -22,26 +22,11 @@ import Item from "./Item.vue";
 
 export default {
   name: "todolist-body",
+  props: ["todoList"],
   data() {
     return {
       inputItem: "",
-      todoItems: [
-        {
-          id: 0,
-          value: "JavaScript",
-          isCompleted: true
-        },
-        {
-          id: 1,
-          value: "Node.js",
-          isCompleted: false
-        },
-        {
-          id: 2,
-          value: "Ruby",
-          isCompleted: false
-        }
-      ]
+      todoItems: this.todoList
     };
   },
   methods: {
@@ -58,7 +43,6 @@ export default {
       let completeItem = this.todoItems[id];
       completeItem.isCompleted = isCompleted;
       this.todoItems.splice(id, 1, completeItem);
-      console.log(this.todoItems);
     }
   },
   components: {

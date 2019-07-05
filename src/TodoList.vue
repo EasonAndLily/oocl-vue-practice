@@ -1,7 +1,7 @@
 <template>
   <div id="TodoList" class="container">
     <Header/>
-    <Body/>
+    <Body v-bind:todoList="todoList"/>
     <Footer/>
   </div>
 </template>
@@ -13,6 +13,27 @@ import Footer from "./components/todo-list/Footer.vue";
 
 export default {
   name: "TodoList",
+  data() {
+    return {
+      todoList: [
+        {
+          id: 0,
+          value: "JavaScript",
+          isCompleted: true
+        },
+        {
+          id: 1,
+          value: "Node.js",
+          isCompleted: false
+        },
+        {
+          id: 2,
+          value: "Ruby",
+          isCompleted: false
+        }
+      ]
+    };
+  },
   components: {
     Header,
     Body,
