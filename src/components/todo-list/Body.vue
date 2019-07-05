@@ -6,7 +6,12 @@
     </div>
     <div id="show-todoList" class="show-panel">
       <ol>
-        <Item v-for="(item, key) in todoItems" :key="key" v-bind:item="item"/>
+        <Item
+          v-for="(item, key) in todoItems"
+          :key="key"
+          v-bind:item="item"
+          v-on:completeItem="completeItem"
+        />
       </ol>
     </div>
   </div>
@@ -22,19 +27,19 @@ export default {
       inputItem: "",
       todoItems: [
         {
-          id: 1,
+          id: 0,
           value: "JavaScript",
-          checked: true
+          isCompleted: true
+        },
+        {
+          id: 1,
+          value: "Node.js",
+          isCompleted: false
         },
         {
           id: 2,
-          value: "Node.js",
-          checked: false
-        },
-        {
-          id: 3,
           value: "Ruby",
-          checked: false
+          isCompleted: false
         }
       ]
     };
@@ -44,10 +49,16 @@ export default {
       let newItem = {
         id: this.todoItems.length,
         value: this.inputItem,
-        checked: false
+        isCompleted: false
       };
       this.todoItems.push(newItem);
       this.inputItem = "";
+    },
+    completeItem: function(isCompleted, id) {
+      let completeItem = this.todoItems[id];
+      completeItem.isCompleted = isCompleted;
+      this.todoItems.splice(id, 1, completeItem);
+      console.log(this.todoItems);
     }
   },
   components: {
@@ -98,10 +109,16 @@ ol {
 }
 
 ol li {
-  margin-top: 5px;
+  margin-top: 10px;
+  font-size: 14px;
+  padding: 5px 0px;
 }
 
 ol li span {
   margin-left: 5px;
+}
+
+ol li:nth-child(even) {
+  background: #f4ecec;
 }
 </style>

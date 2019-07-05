@@ -1,7 +1,7 @@
 <template>
   <li>
     <input type="checkbox" v-model="checked" @change="handleChange">
-    <span>{{item.value}}</span>
+    <span v-bind:class="{checked: checked}">{{item.value}}</span>
   </li>
 </template>
 
@@ -11,11 +11,20 @@ export default {
   props: ["item"],
   data() {
     return {
-      checked: this.item.checked
+      checked: this.item.isCompleted
     };
   },
   methods: {
-    handleChange: function(checked) {}
+    handleChange: function() {
+      this.$emit("completeItem", this.checked, this.item.id);
+    }
   }
 };
 </script>
+
+<style scoped>
+.checked {
+  color: #999;
+  text-decoration: line-through;
+}
+</style>
