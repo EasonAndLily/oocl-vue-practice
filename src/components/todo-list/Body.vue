@@ -5,30 +5,53 @@
       <input type="button" value="Add" class="add-btn" @click="addItem">
     </div>
     <div id="show-todoList" class="show-panel">
-      <ListItems v-bind:todoItems="todoItems"/>
+      <ol>
+        <Item v-for="(item, key) in todoItems" :key="key" v-bind:item="item"/>
+      </ol>
     </div>
   </div>
 </template>
 
 <script>
-import ListItems from "./ListItems.vue";
+import Item from "./Item.vue";
 
 export default {
   name: "todolist-body",
   data() {
     return {
       inputItem: "",
-      todoItems: ["JavaScript", "Node.js", "Ruby"]
+      todoItems: [
+        {
+          id: 1,
+          value: "JavaScript",
+          checked: true
+        },
+        {
+          id: 2,
+          value: "Node.js",
+          checked: false
+        },
+        {
+          id: 3,
+          value: "Ruby",
+          checked: false
+        }
+      ]
     };
   },
   methods: {
     addItem: function() {
-      this.todoItems.push(this.inputItem);
+      let newItem = {
+        id: this.todoItems.length,
+        value: this.inputItem,
+        checked: false
+      };
+      this.todoItems.push(newItem);
       this.inputItem = "";
     }
   },
   components: {
-    ListItems
+    Item
   }
 };
 </script>
