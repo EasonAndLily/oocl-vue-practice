@@ -2,7 +2,6 @@
   <li>
     <input type="checkbox" v-model="checked" @change="handleChange">
     <span v-bind:class="{checked: checked}">{{item.value}}</span>
-    <!-- <span>{{item}}</span> -->
   </li>
 </template>
 
@@ -14,6 +13,9 @@ export default {
     return {
       checked: this.item.isCompleted
     };
+  },
+  updated() {
+    this.checked = this.item.isCompleted;
   },
   methods: {
     handleChange: function() {
