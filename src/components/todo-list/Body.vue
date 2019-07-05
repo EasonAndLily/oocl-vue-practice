@@ -5,17 +5,14 @@
       <input type="button" value="Add" class="add-btn" @click="addItem">
     </div>
     <div id="show-todoList" class="show-panel">
-      <ol>
-        <li v-for="(item, key) in todoItems" :key="key">
-          <input type="checkbox">
-          <span>{{item}}</span>
-        </li>
-      </ol>
+      <ListItems v-bind:todoItems="todoItems"/>
     </div>
   </div>
 </template>
 
 <script>
+import ListItems from "./ListItems.vue";
+
 export default {
   name: "todolist-body",
   data() {
@@ -29,6 +26,9 @@ export default {
       this.todoItems.push(this.inputItem);
       this.inputItem = "";
     }
+  },
+  components: {
+    ListItems
   }
 };
 </script>
