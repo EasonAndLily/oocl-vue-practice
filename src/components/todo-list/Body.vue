@@ -22,6 +22,7 @@ import Item from "./Item.vue";
 
 export default {
   name: "todolist-body",
+  props: ["filterStatus"],
   data() {
     return {
       inputItem: "",
@@ -41,13 +42,8 @@ export default {
           value: "Ruby",
           isCompleted: false
         }
-      ],
-      showItemsStatus: "All",
-      showedItems: []
+      ]
     };
-  },
-  created: function() {
-    this.showedItems = this.todoItems;
   },
   methods: {
     addItem: function() {
@@ -58,32 +54,24 @@ export default {
       };
       this.todoItems.push(newItem);
       this.inputItem = "";
-      this.filterItems(this.showItemsStatus);
     },
     completeItem: function(isCompleted, id) {
       let completeItem = this.todoItems[id];
       completeItem.isCompleted = isCompleted;
       this.todoItems.splice(id, 1, completeItem);
-      this.filterItems(this.showItemsStatus);
-    },
-    filterItems: function(value) {
-      this.showItemsStatus = value;
-      switch (value) {
-        case "Active":
-          this.showedItems = this.todoItems.filter(
-            item => item.isCompleted == false
-          );
-          break;
-        case "Complete":
-          this.showedItems = this.todoItems.filter(
-            item => item.isCompleted == true
-          );
-          break;
-        case "ALL":
-        default:
-          this.showedItems = this.todoItems;
-          break;
+    }
+  },
+  computed: {
+    showedItems: function() {
+      if (this.filterStatus == "Active") {
+        return this.todoItems.filter(item => item.isCompleted == false);
       }
+
+      if (this.filterStatus == "Complete") {
+        return this.todoItems.filter(item => item.isCompleted == true);
+      }
+
+      return this.todoItems;
     }
   },
   components: {

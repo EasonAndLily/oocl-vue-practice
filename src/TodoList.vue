@@ -1,7 +1,7 @@
 <template>
   <div id="TodoList" class="container">
     <Header/>
-    <Body ref="bodyList"/>
+    <Body v-bind:filterStatus="filterStatus"/>
     <Footer v-on:filterToDoList="filterToDoList"/>
   </div>
 </template>
@@ -13,9 +13,14 @@ import Footer from "./components/todo-list/Footer.vue";
 
 export default {
   name: "TodoList",
+  data() {
+    return {
+      filterStatus: "All"
+    };
+  },
   methods: {
     filterToDoList: function(value) {
-      this.$refs.bodyList.filterItems(value);
+      this.filterStatus = value;
     }
   },
   components: {
