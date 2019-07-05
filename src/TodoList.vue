@@ -1,8 +1,8 @@
 <template>
   <div id="TodoList" class="container">
     <Header/>
-    <Body v-bind:todoList="todoList"/>
-    <Footer/>
+    <Body ref="bodyList"/>
+    <Footer v-on:filterToDoList="filterToDoList"/>
   </div>
 </template>
 
@@ -13,26 +13,10 @@ import Footer from "./components/todo-list/Footer.vue";
 
 export default {
   name: "TodoList",
-  data() {
-    return {
-      todoList: [
-        {
-          id: 0,
-          value: "JavaScript",
-          isCompleted: true
-        },
-        {
-          id: 1,
-          value: "Node.js",
-          isCompleted: false
-        },
-        {
-          id: 2,
-          value: "Ruby",
-          isCompleted: false
-        }
-      ]
-    };
+  methods: {
+    filterToDoList: function(value) {
+      this.$refs.bodyList.filterItems(value);
+    }
   },
   components: {
     Header,

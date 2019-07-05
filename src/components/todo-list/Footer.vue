@@ -47,6 +47,8 @@ export default {
       let newSelectedBtn = this.btns[index];
       newSelectedBtn.selected = true;
       this.btns.splice(index, 1, newSelectedBtn);
+
+      this.$emit("filterToDoList", newSelectedBtn.text);
     }
   },
   components: {

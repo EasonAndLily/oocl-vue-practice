@@ -7,7 +7,7 @@
     <div id="show-todoList" class="show-panel">
       <ol>
         <Item
-          v-for="(item, key) in todoItems"
+          v-for="(item, key) in showedItems"
           :key="key"
           v-bind:item="item"
           v-on:completeItem="completeItem"
@@ -22,12 +22,32 @@ import Item from "./Item.vue";
 
 export default {
   name: "todolist-body",
-  props: ["todoList"],
   data() {
     return {
       inputItem: "",
-      todoItems: this.todoList
+      todoItems: [
+        {
+          id: 0,
+          value: "JavaScript",
+          isCompleted: true
+        },
+        {
+          id: 1,
+          value: "Node.js",
+          isCompleted: false
+        },
+        {
+          id: 2,
+          value: "Ruby",
+          isCompleted: false
+        }
+      ],
+      showItemsStatus: "All",
+      showedItems: []
     };
+  },
+  created: function() {
+    this.showedItems = this.todoItems;
   },
   methods: {
     addItem: function() {
@@ -38,11 +58,32 @@ export default {
       };
       this.todoItems.push(newItem);
       this.inputItem = "";
+      this.filterItems(this.showItemsStatus);
     },
     completeItem: function(isCompleted, id) {
       let completeItem = this.todoItems[id];
       completeItem.isCompleted = isCompleted;
       this.todoItems.splice(id, 1, completeItem);
+      this.filterItems(this.showItemsStatus);
+    },
+    filterItems: function(value) {
+      this.showItemsStatus = value;
+      switch (value) {
+        case "Active":
+          this.showedItems = this.todoItems.filter(
+            item => item.isCompleted == false
+          );
+          break;
+        case "Complete":
+          this.showedItems = this.todoItems.filter(
+            item => item.isCompleted == true
+          );
+          break;
+        case "ALL":
+        default:
+          this.showedItems = this.todoItems;
+          break;
+      }
     }
   },
   components: {
